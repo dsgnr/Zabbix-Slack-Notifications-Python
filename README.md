@@ -1,8 +1,10 @@
 # Zabbix alert script for [Slack](https://slack.com/)
 
+Originally forked from https://github.com/emgag/zabbix-slack but modified for Python 3
+
 ## Requirements
 
-- Python 2
+- Python 3
 
 ## Installation
 
@@ -13,35 +15,34 @@
 [{TRIGGER.STATUS}] ({TRIGGER.SEVERITY}): {TRIGGER.NAME}
 ```
 
-- Create new media type in Zabbix 
+- Create new media type in Zabbix
 
 ![Media Type](doc/zabbix-media-type.png)
 
-- Copy slack.py and slack.cfg to /usr/lib/zabbix/alertscripts
+- Copy slack.py and .env to /usr/lib/zabbix/alertscripts
+- Modify the .env file to use your own SLACK_WEBHOOK_URL ()
 - Make slack.py executable for the user running Zabbix server
 
 ## Usage
 
 ### Zabbix
 
-Use receiving user or channel in the _Send to_ field when adding a new media for a user. 
+Use receiving user or channel in the _Send to_ field when adding a new media for a user.
 
 ### CLI
 
 ```
-usage: slack.py [-h] [-v] [-c [C]] to subject message
+usage: slack.py [-h] to subject message
 
 Zabbix Slack Client
 
 positional arguments:
-  to             Receiving user or channel
-  subject        Message subject
-  message        Message body
+  to          Receiving user or channel
+  subject     Message subject
+  message     Message body
 
 optional arguments:
-  -h, --help     show this help message and exit
-  -v, --version  show program's version number and exit
-  -c [C]         The configuration file to use (default: slack.cfg)
+  -h, --help  show this help message and exit
 ```
 
 ## License
