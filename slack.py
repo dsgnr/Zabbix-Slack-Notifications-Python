@@ -24,9 +24,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 try:
-    webhook_token = os.environ["SLACK_WEBHOOK_URL"]
-    username = os.environ["SLACK_USERNAME"]
-    icon_emoji = os.environ["SLACK_USERNAME"]
+    os.environ["SLACK_WEBHOOK_URL"]
+    os.environ["SLACK_USERNAME"]
+    os.environ["ICON_EMOJI"]
     good = "\[OK\]"
     warning = "\[Problem\] \((Warning|Average)\)"
     danger = "\[Problem\] \((High|Critical)\)"
@@ -60,18 +60,16 @@ options = {
             "color": color,
             "title": args.subject,
             "text": args.message,
-            # 'fields': [{
-            #     'title': args.subject,
-            #     'value': args.message
-            # }]
         }
-    ]
+    ],
+    "username": os.environ["SLACK_USERNAME"],
+    "icon_emoji": os.environ["ICON_EMOJI"],
 }
 
 conn = httplib2.HTTPSConnectionWithTimeout("hooks.slack.com:443")
 conn.request(
     "POST",
-    f"/services/{webhook_token}",
+    f"/services/{os.environ['SLACK_WEBHOOK_URL']}",
     json.dumps(options),
     {"Content-type": "application/json"},
 )
